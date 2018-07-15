@@ -45,7 +45,8 @@ endfunction
 
 " 清除语法高亮
 function! s:clean_highlight()
-    for h in filter(getmatches(), 'v:val.group ==# "VimEdit"')
-        call matchdelete(h.id)
-    endfor
+    call clearmatches()
+    " for h in filter(getmatches(), 'v:val.group ==# "VimEdit"')
+    "     call matchdelete(h.id)
+    " endfor
 endfunction
