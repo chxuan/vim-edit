@@ -11,5 +11,7 @@ endif
 
 let g:vim_edit_loaded = 1
 
-command! -nargs=0 CopyText call edit#edit#copy_text()
+command! -nargs=0 CopyText call edit#edit_text("Y")
+command! -nargs=0 DeleteText call edit#edit_text("D")
+command! -nargs=0 ChangeText call edit#edit_text("C")
 

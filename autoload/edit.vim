@@ -12,9 +12,12 @@ highlight default VimEdit ctermfg=red ctermbg=NONE cterm=bold,underline guifg=re
 let s:tail = ""
 " target_key下标集合
 let s:idx = []
+" 编辑模式
+let s:edit_mode = ""
 
-" 拷贝文本
-function! edit#edit#copy_text()
+" 编辑文本
+function! edit#edit_text(mode)
+    let s:edit_mode = a:mode
     echo "Target key: "
     let target_key = edit#util#getchar()
 
@@ -40,7 +43,7 @@ endfunction
 " 只有一个位置
 function! OnlyOneTargetKey(timer)
     call timer_stop(a:timer)
-    call <sid>get_text(0)
+    call <sid>choice_edit_mode(0)
     call edit#util#clean_highlight()
 endfunction
 
@@ -48,15 +51,21 @@ endfunction
 function! ManyTargetKeyForUser(timer)
     call timer_stop(a:timer)
     let num = edit#util#getchar()
-    call <sid>get_text(num)
+    call <sid>choice_edit_mode(num)
     call edit#util#clean_highlight()
 endfunction
 
-" 获取文本
-function! s:get_text(num)
+" 选择编辑模式
+function! s:choice_edit_mode(num)
     let pos = get(s:idx, a:num - 1)
-    let ret = edit#util#substr(s:tail, 0, pos + 1)
-    let @" = ret
+
+    if s:edit_mode == "Y"
+        call edit#copy#copy_text(s:tail, pos)
+    elseif s:edit_mode == "D"
+        call edit#delete#delete_text(s:tail, pos)
+    elseif s:edit_mode == "C"
+        call edit#change#change_text(s:tail, pos)
+    endif
 endfunction
 
 " 获取列号
