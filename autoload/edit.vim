@@ -12,12 +12,12 @@ highlight default VimEdit ctermfg=red ctermbg=NONE cterm=bold,underline guifg=re
 let s:tail = ""
 " target_key下标集合
 let s:idx = []
-" 编辑模式
-let s:edit_mode = ""
+" 编辑类型
+let s:edit_type = ""
 
 " 编辑文本
-function! edit#edit_text(mode)
-    let s:edit_mode = a:mode
+function! edit#edit_text(type)
+    let s:edit_type = a:type
     echo "Target key: "
     let target_key = edit#util#getchar()
 
@@ -34,16 +34,16 @@ function! edit#edit_text(mode)
     call edit#util#show_highlight(col)
 
     if len(s:idx) == 1
-        call timer_start(200, 'OnlyOneTargetKey', {'repeat': 1})
+        call timer_start(100, 'OnlyOneTargetKey', {'repeat': 1})
     else
-        call timer_start(200, 'ManyTargetKeyForUser', {'repeat': 1})
+        call timer_start(100, 'ManyTargetKeyForUser', {'repeat': 1})
     endif
 endfunction
 
 " 只有一个位置
 function! OnlyOneTargetKey(timer)
     call timer_stop(a:timer)
-    call <sid>choice_edit_mode(0)
+    call <sid>choice_edit_type(0)
     call edit#util#clean_highlight()
 endfunction
 
@@ -51,19 +51,19 @@ endfunction
 function! ManyTargetKeyForUser(timer)
     call timer_stop(a:timer)
     let num = edit#util#getchar()
-    call <sid>choice_edit_mode(num)
+    call <sid>choice_edit_type(num)
     call edit#util#clean_highlight()
 endfunction
 
 " 选择编辑模式
-function! s:choice_edit_mode(num)
+function! s:choice_edit_type(num)
     let pos = get(s:idx, a:num - 1)
 
-    if s:edit_mode == "Y"
+    if s:edit_type == "Y"
         call edit#copy#copy_text(s:tail, pos)
-    elseif s:edit_mode == "D"
+    elseif s:edit_type == "D"
         call edit#delete#delete_text(s:tail, pos)
-    elseif s:edit_mode == "C"
+    elseif s:edit_type == "C"
         call edit#change#change_text(s:tail, pos)
     endif
 endfunction

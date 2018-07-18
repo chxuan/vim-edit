@@ -69,3 +69,9 @@ function! edit#util#clean_highlight()
     call clearmatches()
 endfunction
 
+" 删除多个字符
+function! edit#util#erase_char_by_count(count)
+    for i in range(1, a:count)
+        execute "normal! x"
+    endfor
+endfunction

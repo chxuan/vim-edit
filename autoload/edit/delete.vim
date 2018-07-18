@@ -7,6 +7,7 @@
 
 " 剪切文本
 function! edit#delete#delete_text(tail, pos)
-    echo "delete text"
+    call edit#util#erase_char_by_count(a:pos + 1)
+    call edit#copy#copy_text(a:tail, a:pos)
 endfunction
 
