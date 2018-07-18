@@ -75,3 +75,8 @@ function! edit#util#erase_char_by_count(count)
         execute "normal! x"
     endfor
 endfunction
+
+" 进入插入模式
+function! edit#util#enter_insert_mode()
+    call feedkeys('i', 'n')
+endfunction

@@ -7,6 +7,7 @@
 
 " 改写文本
 function! edit#change#change_text(tail, pos)
-    echo "change text"
+    call edit#delete#delete_text(a:tail, a:pos)
+    call edit#util#enter_insert_mode()
 endfunction
 
