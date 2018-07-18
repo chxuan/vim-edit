@@ -33,24 +33,18 @@ function! edit#edit_text(type)
     let col = <sid>get_col_num(len(row_text) - len(s:tail))
     call edit#util#show_highlight(col)
 
-    if len(s:idx) == 1
-        call timer_start(100, 'OnlyOneTargetKey', {'repeat': 1})
-    else
-        call timer_start(100, 'ManyTargetKeyForUser', {'repeat': 1})
+    call timer_start(100, 'ChoiceTargetKey', {'repeat': 1})
+endfunction
+
+" 选择TargetKey
+function! ChoiceTargetKey(timer)
+    call timer_stop(a:timer)
+    let num = 0
+
+    if len(s:idx) > 1
+        let num = edit#util#getchar()
     endif
-endfunction
 
-" 只有一个位置
-function! OnlyOneTargetKey(timer)
-    call timer_stop(a:timer)
-    call <sid>choice_edit_type(0)
-    call edit#util#clean_highlight()
-endfunction
-
-" 多个位置供用户选择
-function! ManyTargetKeyForUser(timer)
-    call timer_stop(a:timer)
-    let num = edit#util#getchar()
     call <sid>choice_edit_type(num)
     call edit#util#clean_highlight()
 endfunction
@@ -71,11 +65,11 @@ endfunction
 " 获取列号
 function! s:get_col_num(diff)
     let col = []
-    
+
     for i in s:idx
         call add(col, i + 1 + a:diff)
     endfor
-    
+
     return col
 endfunction
 
