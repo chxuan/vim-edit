@@ -41,19 +41,19 @@ endfunction
 
 " 从命令行获取一个字符
 function! edit#util#getchar(...)
-	let mode = get(a:, 1, 0)
-	while 1
-		" Workaround for https://github.com/osyo-manga/vital-over/issues/53
-		try
-			let char = call("getchar", a:000)
-		catch /^Vim:Interrupt$/
-			let char = 3 " <C-c>
-		endtry
-		" Workaround for the <expr> mappings
-		if string(char) !=# "\x80\xfd`"
-			return mode == 1 ? !!char : type(char) == type(0) ? nr2char(char) : char
-		endif
-	endwhile
+    let mode = get(a:, 1, 0)
+    while 1
+        " Workaround for https://github.com/osyo-manga/vital-over/issues/53
+        try
+            let char = call("getchar", a:000)
+        catch /^Vim:Interrupt$/
+            let char = 3 " <C-c>
+        endtry
+        " Workaround for the <expr> mappings
+        if string(char) !=# "\x80\xfd`"
+            return mode == 1 ? !!char : type(char) == type(0) ? nr2char(char) : char
+        endif
+    endwhile
 endfunction
 
 " 显示语法高亮
