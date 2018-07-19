@@ -31,7 +31,7 @@ function! edit#util#find_char(str, target)
     let idx = []
 
     for i in range(0, len(a:str) - 1)
-        if a:str[i] == a:target
+        if a:str[i] ==# a:target
             call add(idx, i)
         endif
     endfor
