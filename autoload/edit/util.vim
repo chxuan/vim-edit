@@ -80,3 +80,28 @@ endfunction
 function! edit#util#enter_insert_mode()
     call feedkeys('i', 'n')
 endfunction
+
+" 获取当前模式
+function! edit#util#get_current_mode()
+    return mode()
+endfunction
+
+" 删除当前单词
+function! edit#util#delete_current_word()
+    execute "normal! diw"
+endfunction
+
+" 当前行写入文本
+function! edit#util#write_text_at_current_row(text)
+    execute "normal! i" . a:text
+endfunction
+
+" 获取光标下的单词
+function! edit#util#get_current_cursor_word()
+    return expand("<cword>")
+endfunction
+
+" 批量替换文本
+function! edit#util#replace_text_batch(src, target)
+    execute ':%s/\<' . a:src . '\>/' . a:target . '/g'
+endfunction

@@ -15,3 +15,7 @@ command! -nargs=0 CopyText call edit#edit_text("Y")
 command! -nargs=0 DeleteText call edit#edit_text("D")
 command! -nargs=0 ChangeText call edit#edit_text("C")
 
+nnoremap <expr> rr edit#replace#replace_text()
+xnoremap <expr> rr edit#replace#replace_text()
+command! -nargs=1 ReplaceTo call edit#replace#replace_all(<f-args>)
+
