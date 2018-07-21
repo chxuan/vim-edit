@@ -3,6 +3,9 @@ vim-edit: A text edit plugin for vim
 
 ![][1]
 
+[![asciicast](https://asciinema.org/a/14.png)](https://asciinema.org/a/14)
+
+
 ## 安装
     
 - `vim-plug`
