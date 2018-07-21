@@ -58,6 +58,8 @@ endfunction
 
 " 显示语法高亮
 function! edit#util#show_highlight(col)
+    execute 'highlight! link Conceal' 'VimEdit'
+
     setlocal conceallevel=2
     setlocal concealcursor=ncv
 

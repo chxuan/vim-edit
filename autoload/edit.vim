@@ -6,7 +6,7 @@
 " ==============================================================
 
 " 高亮属性
-highlight default VimEdit ctermfg=red ctermbg=NONE cterm=bold,underline guifg=red guibg=NONE gui=bold,underline
+highlight default VimEdit ctermfg=196 ctermbg=NONE cterm=bold guifg=red guibg=NONE gui=bold
 
 " 当前光标到行末的文本
 let s:tail = ""
