@@ -50,5 +50,5 @@ vim-edit: A text edit plugin for vim
 This software is licensed under the [MIT license][2]. © 2018 chxuan
 
 
-  [1]: https://raw.githubusercontent.com/chxuan/vim-edit/master/screenshots/vim-edit.gif
+  [1]: https://raw.githubusercontent.com/chxuan/vim-edit/master/screenshots/vim-edit.png
   [2]: https://github.com/chxuan/vim-edit/blob/master/LICENSE
