@@ -58,9 +58,12 @@ endfunction
 
 " 显示语法高亮
 function! edit#util#show_highlight(col)
+    setlocal conceallevel=2
+    setlocal concealcursor=ncv
+
     let row_num = edit#util#get_current_row_num()
-    for c in a:col
-        call matchaddpos('VimEdit', [[row_num, c]])
+    for i in range(0, len(a:col) - 1)
+        call matchaddpos('Conceal', [[row_num, a:col[i]]], 10, -1, {'conceal': nr2char(97 + i)})
     endfor
 endfunction
 

@@ -24,34 +24,31 @@ function! edit#edit_text(type)
     let s:tail = edit#util#get_text_to_row_tail()
     let s:idx = edit#util#find_char(s:tail, target_key)
 
-    if empty(s:idx)
+    let size = len(s:idx)
+    if size == 1
+        call <sid>check_edit_type("a")
+    elseif size > 1
+        let row_text = edit#util#get_current_row_text()
+        let col = <sid>get_col_num(len(row_text) - len(s:tail))
+        call edit#util#show_highlight(col)
+        call timer_start(0, 'SelectHighlightChar', {'repeat': 1})
+    else
         echo "Not found target key: " . target_key
-        return
     endif
-
-    let row_text = edit#util#get_current_row_text()
-    let col = <sid>get_col_num(len(row_text) - len(s:tail))
-    call edit#util#show_highlight(col)
-
-    call timer_start(100, 'ChoiceTargetKey', {'repeat': 1})
 endfunction
 
-" 选择TargetKey
-function! ChoiceTargetKey(timer)
-    call timer_stop(a:timer)
-    let num = 0
-
-    if len(s:idx) > 1
-        let num = edit#util#getchar()
-    endif
-
-    call <sid>choice_edit_type(num)
+" 选择高亮字符
+function! SelectHighlightChar(id)
+    call timer_stop(a:id)
+    let char = edit#util#getchar()
+    call <sid>check_edit_type(char)
     call edit#util#clean_highlight()
 endfunction
 
-" 选择编辑模式
-function! s:choice_edit_type(num)
-    let pos = get(s:idx, a:num - 1)
+" 判断编辑类型
+function! s:check_edit_type(char)
+    let i = char2nr(a:char) - 97
+    let pos = get(s:idx, i)
 
     if s:edit_type == "Y"
         call edit#copy#copy_text(s:tail, pos)
