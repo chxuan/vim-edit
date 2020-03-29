@@ -37,7 +37,7 @@ vim-edit: A text edit plugin for vim
 
 - `:rev`
 
-    翻转当前光标下的单词
+    翻转当前光标下的单词、或使用V模式选择的文本
 
 
 ## 参考配置
