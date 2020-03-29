@@ -19,3 +19,5 @@ nnoremap <expr> rr edit#replace#replace_text()
 xnoremap <expr> rr edit#replace#replace_text()
 command! -nargs=1 ReplaceTo call edit#replace#replace_all(<f-args>)
 
+nnoremap <expr> rev edit#reverse#reverse_text()
+

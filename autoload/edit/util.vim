@@ -110,3 +110,15 @@ endfunction
 function! edit#util#replace_text_batch(src, target)
     execute ':%s/\<' . a:src . '\>/' . a:target . '/g'
 endfunction
+
+" 翻转文本
+function! edit#util#reverse(text)
+    let result = ""
+
+    let cnt = len(a:text)
+    for i in range(0, cnt - 1)
+        let result = result . a:text[cnt - i - 1]
+    endfor
+
+    return result
+endfunction
